@@ -12,3 +12,8 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
