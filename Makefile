@@ -8,7 +8,7 @@ lint:
 	poetry run flake8 gendiff
 
 gendiff:
-        poetry run gendiff
+	poetry run gendiff
 
 selfcheck:
 	poetry check
