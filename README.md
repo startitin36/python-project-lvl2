@@ -5,7 +5,7 @@
 ![.github/workflows/hexlet-check.yml](https://github.com/startitin36/python-project-lvl2/workflows/.github/workflows/hexlet-check.yml/badge.svg?event=push)
 
 ### Hexlet tests and linter status:
-![Actions Status](/workflows/hexlet-check/badge.svg)
+![Python application](https://github.com/startitin36/python-project-lvl2/workflows/Python%20application/badge.svg?event=push)
 
 ##
 
