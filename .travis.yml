@@ -10,3 +10,15 @@ install:
 
 script:
   - make lint
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - make lint
+  - make test
+
+after script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -r '9240148df34ae1c415ca7fc4aebbea5dd0904e7dc155485ca728d29560eddad3'

@@ -14,18 +14,20 @@ def generate_diff(file_path1, file_path2):
         str: difference between given 2 files.
     """
     final = '{\n'
-    old = json.load(open(file_path1))
-    new = json.load(open(file_path2))
+    with open(file_path1, 'r') as before:
+        old = json.load(before)
+    with open(file_path2, 'r') as after:
+        new = json.load(after)
     for key in sorted((old.keys() | new.keys())):
-        old_value = old.get(key)
-        new_value = new.get(key)
-        if old.get(key) == new_value:
-            diff = '{0} {1}: {2}\n'.format('  ', key, old_value)
-        elif not new_value:
-            diff = '{0} {1}: {2}\n'.format(' -', key, old_value)
-        elif not old_value:
-            diff = '{0} {1}: {2}\n'.format(' +', key, new_value)
+        if old.get(key) == new.get(key):
+            diff = '{0} {1}: {2}\n'.format('  ', key, old.get(key))
+        elif not new.get(key):
+            diff = '{0} {1}: {2}\n'.format(' -', key, old.get(key))
+        elif not old.get(key):
+            diff = '{0} {1}: {2}\n'.format(' +', key, new.get(key))
         else:
-            diff = '{0} {1}: {2}\n{3} {4}: {5}\n'.format(' -', key, old_value, ' +', key, new_value)
+            diff = '{0} {1}: {2}\n{3} {4}: {5}\n'.format(
+                ' -', key, old.get(key), ' +', key, new.get(key),
+            )
         final += diff
     return '{0}'.format(final[:-1] + '\n}')
