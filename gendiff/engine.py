@@ -2,7 +2,7 @@
 """To pars arguments."""
 import argparse
 
-from gendiff.gendiff.generate_diff import generate_diff
+from gendiff.generate_diff import generate_diff
 
 parser = argparse.ArgumentParser(description='Generate diff')
 parser.add_argument('first_file', type=str)

@@ -20,12 +20,12 @@ def generate_diff(file_path1, file_path2):
         old_value = old.get(key)
         new_value = new.get(key)
         if old.get(key) == new_value:
-            diff = '{0} {1}: {2},\n'.format(' ', key, old_value)
+            diff = '{0} {1}: {2}\n'.format('  ', key, old_value)
         elif not new_value:
-            diff = '{0} {1}: {2},\n'.format('-', key, old_value)
+            diff = '{0} {1}: {2}\n'.format(' -', key, old_value)
         elif not old_value:
-            diff = '{0} {1}: {2},\n'.format('+', key, new_value)
+            diff = '{0} {1}: {2}\n'.format(' +', key, new_value)
         else:
-            diff = '{0} {1}: {2},\n{3} {4}: {5},\n'.format('-', key, old_value, '+', key, new_value)
+            diff = '{0} {1}: {2}\n{3} {4}: {5}\n'.format(' -', key, old_value, ' +', key, new_value)
         final += diff
-    return '{0}'.format(final[:-2] + '\n}')
+    return '{0}'.format(final[:-1] + '\n}')
