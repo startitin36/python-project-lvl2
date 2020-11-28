@@ -4,5 +4,6 @@ dist/
 *.pyc
 .venv/
 file*
-*coverage*
+coverage.*
 .idea
+.coverage
