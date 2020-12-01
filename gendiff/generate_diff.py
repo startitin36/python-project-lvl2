@@ -31,3 +31,4 @@ def generate_diff(file_path1, file_path2):
             )
         final += diff
     return '{0}'.format(final[:-1] + '\n}')
+    
