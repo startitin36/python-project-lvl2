@@ -15,6 +15,3 @@ def form(diff):
         if 'added' in diff[key]:
             formatted += '\n{}+ {}: {}'.format(indent, key, added)
     return formatted + '\n}'
-
-
-

@@ -10,7 +10,8 @@ parser.add_argument('first_file', type=str)
 parser.add_argument('second_file', type=str)
 parser.add_argument('-f', '--format', default='stylish', type=str,
                     choices=['plain', 'json', 'stylish'],
-                    help='set format of output: "plain", "json" or "stylish"(by default)')
+                    help='set format of output: "plain", "json" or'
+                    ' "stylish"(by default)')
 args = parser.parse_args()
 
 
