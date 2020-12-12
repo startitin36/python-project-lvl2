@@ -12,3 +12,7 @@
 # How to run gendiff:
 
 [![asciicast](https://asciinema.org/a/VjLMG7J66K3ioR9G9fKAFKubS.svg)](https://asciinema.org/a/VjLMG7J66K3ioR9G9fKAFKubS)
+
+# Gendiff simple json/yaml comparing:
+
+[![asciicast](https://asciinema.org/a/Sx8C1ECjPjmaICOqHJQ7ZxqUb.svg)](https://asciinema.org/a/Sx8C1ECjPjmaICOqHJQ7ZxqUb)

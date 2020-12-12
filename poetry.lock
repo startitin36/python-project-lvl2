@@ -90,7 +90,7 @@ python-versions = "*"
 name = "flake8"
 version = "3.8.4"
 description = "the modular source code checker: pep8 pyflakes and co"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
@@ -307,7 +307,7 @@ xdg_home = ["appdirs (>=1.4.0)"]
 name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -365,7 +365,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "pycodestyle"
 version = "2.6.0"
 description = "Python style guide checker"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -384,7 +384,7 @@ snowballstemmer = "*"
 name = "pyflakes"
 version = "2.2.0"
 description = "passive checker of Python programs"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -556,7 +556,7 @@ typing_extensions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3d1f8f8dc5deabafebe25c4d2cfa8577beb7798c0ebe4b21172938418f87f99c"
+content-hash = "5d5d4a2aec2fd00d534aa64926261eaeac1e92619f84d353c32a25b58146ed67"
 
 [metadata.files]
 astor = [
