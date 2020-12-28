@@ -17,3 +17,8 @@
 # Gendiff simple json/yaml comparing:
 
 [![asciicast](https://asciinema.org/a/Sx8C1ECjPjmaICOqHJQ7ZxqUb.svg)](https://asciinema.org/a/Sx8C1ECjPjmaICOqHJQ7ZxqUb)
+
+Gendiff stylish output
+
+[![asciicast](https://asciinema.org/a/kSoErL38NCykhSSBX8q5RCl6H.svg)](https://asciinema.org/a/kSoErL38NCykhSSBX8q5RCl6H)
+

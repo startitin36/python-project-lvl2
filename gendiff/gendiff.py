@@ -4,11 +4,12 @@ from gendiff.convert import convert
 from gendiff.formatters import stylish
 from gendiff.formatters import json
 from gendiff.formatters import plain
+from gendiff.encode import encode
 
 NO_VAL = 'no_value'
 
 
-def generate_diff(file1, file2, form='stylish'):
+def generate_diff(path1, path2, form='stylish'):
     """Summary line.
 
     Description
@@ -19,31 +20,35 @@ def generate_diff(file1, file2, form='stylish'):
     convert() returns 2 dicts.
 
     Arguments:
-        file1 (str): path to file before changes
-        file2 (str): after changes
+        path1 (str): path to file before changes
+        path2 (str): after changes
         form (str): style of result output
 
     Returns:
-        diffs string in requires style
+        diffs string in required style.
     """
-    old, new = convert([file1, file2])
-    diffs = dict(
+    old, new = convert([path1, path2])
+    diffs = find_diff(old, new)
+    formatted_view = ''
+    if form == 'stylish':
+        formatted_view = stylish.form_view(diffs)
+    if form == 'plain':
+        formatted_view = plain.form_view(diffs)
+    if form == 'json':
+        formatted_view = json.form_view(diffs)
+    return formatted_view
+
+
+def find_diff(old, new):
+    return dict(
         map(
             lambda x: (
                 x, mark_state(
-                    old.get(x, NO_VAL), new.get(x, NO_VAL),
+                    old.get(x), new.get(x),
                 ),
             ), (old.keys() | new.keys()),
         ),
     )
-    formatted_view = ''
-    if form == 'stylish':
-        formatted_view = stylish.form(diffs)
-    if form == 'plain':
-        formatted_view = plain.form(diffs)
-    if form == 'json':
-        formatted_view = json.form(diffs)
-    return formatted_view
 
 
 def mark_state(before, after):
@@ -57,11 +62,12 @@ def mark_state(before, after):
         dict of changes
     """
     if before == after:
-        state = {'same': before}
-    elif before == NO_VAL:
-        state = {'added': after}
-    elif after == NO_VAL:
-        state = {'removed': before}
-    else:
-        state = {'removed': before, 'added': after}
-    return state
+        return {'same': encode(before)}
+    elif before is None:
+        return {'added': encode(after)}
+    elif after is None:
+        return {'removed': encode(before)}
+    elif before != after:
+        if isinstance(after, dict) and isinstance(before, dict):
+            return find_diff(before, after)
+        return {'removed': encode(before), 'added': encode(after)}
