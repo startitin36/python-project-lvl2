@@ -44,7 +44,7 @@ def find_diff(old, new):
         map(
             lambda x: (
                 x, mark_state(
-                    old.get(x), new.get(x),
+                    get_value(old, x), get_value(new, x),
                 ),
             ), (old.keys() | new.keys()),
         ),
@@ -61,13 +61,22 @@ def mark_state(before, after):
     Returns:
         dict of changes
     """
-    if before == after:
-        return {'same': encode(before)}
-    elif before is None:
-        return {'added': encode(after)}
-    elif after is None:
-        return {'removed': encode(before)}
-    elif before != after:
+
+    bef_enc = encode(before)
+    aft_enc = encode(after)
+    if bef_enc == aft_enc:
+        return {'same': bef_enc}
+    elif before is None and type(before) != str:
+        return {'added': aft_enc}
+    elif after is None and type(after) != str:
+        return {'removed': bef_enc}
+    elif bef_enc != aft_enc:
         if isinstance(after, dict) and isinstance(before, dict):
             return find_diff(before, after)
-        return {'removed': encode(before), 'added': encode(after)}
+        return {'removed': bef_enc, 'added': aft_enc}
+
+
+def get_value(node, key):
+    if key in node:
+        return encode(node.get(key))
+    return None

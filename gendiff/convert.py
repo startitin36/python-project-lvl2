@@ -9,7 +9,7 @@ def convert(*args):
         with open(abs_path, 'r') as file_to_convert:
             if ext == 'json':
                 converted = json.load(file_to_convert)
-            elif ext == 'yaml' or 'yml':
+            elif ext == 'yaml' or ext == 'yml':
                 converted = yaml.safe_load(file_to_convert)
             else:
                 raise AttributeError

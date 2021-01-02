@@ -9,7 +9,7 @@ json_encode_list = [
     float,
     True,
     False,
-    None
+    None,
 ]
 
 

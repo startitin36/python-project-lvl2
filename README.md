@@ -18,7 +18,10 @@
 
 [![asciicast](https://asciinema.org/a/Sx8C1ECjPjmaICOqHJQ7ZxqUb.svg)](https://asciinema.org/a/Sx8C1ECjPjmaICOqHJQ7ZxqUb)
 
-Gendiff stylish output
+# Stylish output
 
 [![asciicast](https://asciinema.org/a/kSoErL38NCykhSSBX8q5RCl6H.svg)](https://asciinema.org/a/kSoErL38NCykhSSBX8q5RCl6H)
 
+# Plain output
+
+[![asciicast](https://asciinema.org/a/Km26P9IQibkXUvU2ZzDiwC699.svg)](https://asciinema.org/a/Km26P9IQibkXUvU2ZzDiwC699)
