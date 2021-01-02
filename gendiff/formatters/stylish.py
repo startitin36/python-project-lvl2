@@ -29,10 +29,10 @@ def transform(inner_tree):
             if same:
                 mod_key = '' + '' + key
                 result[mod_key] = same
-            if removed or removed == '':
+            if removed or removed == '' or removed == 0 or removed == 'null':
                 mod_key = '-' + ' ' + key
                 result[mod_key] = removed
-            if added or added == '':
+            if added or added == '' or added == 0 or added == 'null':
                 mod_key = '+' + ' ' + key
                 result[mod_key] = added
             if added is None and removed is None and same is None:
