@@ -10,7 +10,7 @@ def form_view(diffs):
                 walk(value, indent + '    ')
             else:
                 if value == '' or value == "":
-                    lines.append(f'{indent}{key}:')
+                    lines.append(f'{indent}{key}: ')
                 else:
                     lines.append(f'{indent}{key}: {value}')
         lines.append(f'{indent[:-2]}}}')
