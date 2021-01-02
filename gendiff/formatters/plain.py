@@ -41,8 +41,6 @@ def def_value(value):
     if type(value) in simples:
         if value in code_list:
             return value
-        if type(value) == int:
-            return value
         return f'\'{value}\''
     return COMPLEX_VAL
 
