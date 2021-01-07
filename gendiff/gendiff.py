@@ -4,6 +4,7 @@ from gendiff.convert import convert
 from gendiff.formatters import stylish
 from gendiff.formatters import json
 from gendiff.formatters import plain
+from gendiff.formatters.forms import forms
 from gendiff.encode import encode
 
 NO_VAL = 'no_value'
@@ -29,14 +30,7 @@ def generate_diff(path1, path2, form='stylish'):
     """
     old, new = convert([path1, path2])
     diffs = find_diff(old, new)
-    formatted_view = ''
-    if form == 'stylish':
-        formatted_view = stylish.form_view(diffs)
-    if form == 'plain':
-        formatted_view = plain.form_view(diffs)
-    if form == 'json':
-        formatted_view = json.form_view(diffs)
-    return formatted_view
+    return forms.get(form)(diffs)
 
 
 def find_diff(old, new):
