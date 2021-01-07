@@ -45,7 +45,7 @@ def def_value(value):
         # if value == '':
         #     return ''
         if value == 0:
-            return f'{0}'
+            return value
         if value in code_list:
             return value
         return f'\'{value}\''
