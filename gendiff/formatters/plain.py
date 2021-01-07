@@ -20,8 +20,8 @@ def form_view(diffs):
                 val_bef, val_aft = value.get('removed'), value.get('added')
                 if 'same' in value:
                     continue
-                elif (val_bef or val_bef == "" or val_bef == 0) and (
-                        val_aft or val_aft == "" or val_aft == 'null'
+                elif (val_bef or val_bef == '' or val_bef == 0) and (
+                        val_aft or val_aft == '' or val_aft == 'null'
                 ):
                     val_bef, val_aft = def_value(val_bef), def_value(val_aft)
                     lines.append(
