@@ -4,6 +4,7 @@ code_list = [
     'false',
     'true',
     'null',
+    0,
 ]
 PROP = 'Property \'{}\' was '
 UPD = PROP + 'updated. From {} to {}'
