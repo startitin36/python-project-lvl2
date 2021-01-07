@@ -41,8 +41,8 @@ def def_value(value):
     if type(value) in simples:
         # if value == '':
         #     return ''
-        if value == 0:
-            return 0
+        # if value == 0:
+        #     return 0
         if value in code_list:
             return value
         return f'\'{value}\''
