@@ -1,4 +1,4 @@
-from gendiff import generate_diff
+from gendiff import gendiff
 
 
 def test_split_json():
@@ -6,7 +6,7 @@ def test_split_json():
     file1 = './tests/fixtures/before.json'
     with open('./tests/fixtures/split_diff.txt', 'r') as answer:
         expected = answer.read()
-    result = generate_diff.generate_diff(file1, file2)
+    result = gendiff.generate_diff(file1, file2)
     assert result == expected
 
 
@@ -15,7 +15,7 @@ def test_split_yaml():
     file1 = './tests/fixtures/before.yaml'
     with open('./tests/fixtures/split_diff.txt', 'r') as answer:
         expected = answer.read()
-    result = generate_diff.generate_diff(file1, file2)
+    result = gendiff.generate_diff(file1, file2)
     assert result == expected
 
 
@@ -24,7 +24,7 @@ def test_complex_json_stylish():
     file1 = './tests/fixtures/complex_1.json'
     with open('./tests/fixtures/complex_stylish.txt', 'r') as answer:
         expected = answer.read()
-    result = generate_diff.generate_diff(file1, file2)
+    result = gendiff.generate_diff(file1, file2)
     assert result == expected
 
 
@@ -33,7 +33,7 @@ def test_complex_yaml_stylish():
     file1 = './tests/fixtures/complex_1.yaml'
     with open('./tests/fixtures/complex_stylish.txt', 'r') as answer:
         expected = answer.read()
-    result = generate_diff.generate_diff(file1, file2)
+    result = gendiff.generate_diff(file1, file2)
     assert result == expected
 
 
@@ -42,5 +42,5 @@ def test_complex_json_plain():
     file1 = './tests/fixtures/complex_1.json'
     with open('./tests/fixtures/complex_plain.txt', 'r') as answer:
         expected = answer.read()
-    result = generate_diff.generate_diff(file1, file2, 'plain')
+    result = gendiff.generate_diff(file1, file2, 'plain')
     assert result == expected

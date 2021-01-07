@@ -2,7 +2,7 @@
 """To pars arguments."""
 import argparse
 
-from gendiff import generate_diff
+from gendiff import gendiff
 
 
 parser = argparse.ArgumentParser(description='Generate diff')
@@ -22,7 +22,7 @@ def main():
         str: difference between given 2 files.
     """
     print(
-        generate_diff.generate_diff(
+        gendiff.generate_diff(
             args.first_file, args.second_file, args.format
         )
     )
