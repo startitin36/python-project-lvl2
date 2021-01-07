@@ -21,7 +21,8 @@ def form_view(diffs):
                 if 'same' in value:
                     continue
                 elif (val_bef or val_bef == '' or val_bef == 0) and (
-                        val_aft or val_aft == '' or val_aft == 'null' or val_aft == 0
+                    val_aft or val_aft == '' or val_aft == 'null' or
+                    val_aft == 0
                 ):
                     val_bef, val_aft = def_value(val_bef), def_value(val_aft)
                     lines.append(
@@ -44,7 +45,7 @@ def def_value(value):
         # if value == '':
         #     return ''
         if value == 0:
-            return 0
+            return f'{value}'
         if value in code_list:
             return value
         return f'\'{value}\''
