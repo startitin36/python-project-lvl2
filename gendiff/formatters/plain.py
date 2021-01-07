@@ -20,10 +20,7 @@ def form_view(diffs):
                 val_bef, val_aft = value.get('removed'), value.get('added')
                 if 'same' in value:
                     continue
-                elif (val_bef or val_bef == '' or val_bef == 0) and (
-                    val_aft or val_aft == '' or val_aft == 'null' or
-                    val_aft == 0
-                ):
+                elif val_aft is not None and val_bef is not None:
                     val_bef, val_aft = def_value(val_bef), def_value(val_aft)
                     lines.append(
                         UPD.format(make_path(path, key), val_bef, val_aft)
@@ -45,7 +42,7 @@ def def_value(value):
         # if value == '':
         #     return ''
         if value == 0:
-            return value
+            return 0
         if value in code_list:
             return value
         return f'\'{value}\''
