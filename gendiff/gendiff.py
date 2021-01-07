@@ -1,9 +1,6 @@
 #!usr/bin/env python3
 
 from gendiff.convert import convert
-from gendiff.formatters import stylish
-from gendiff.formatters import json
-from gendiff.formatters import plain
 from gendiff.formatters.forms import forms
 from gendiff.encode import encode
 
