@@ -44,3 +44,12 @@ def test_complex_json_plain():
         expected = answer.read()
     result = gendiff.generate_diff(file1, file2, 'plain')
     assert result == expected
+
+
+def test_0_plain():
+    file2 = './tests/fixtures/test_01.json'
+    file1 = './tests/fixtures/test_00.json'
+    with open('./tests/fixtures/test_plain.txt', 'r') as answer:
+        expected = answer.read()
+    result = gendiff.generate_diff(file1, file2, 'plain')
+    assert result == expected
