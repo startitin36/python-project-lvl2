@@ -1,4 +1,5 @@
 from gendiff import gendiff
+from json import loads
 
 
 def test_split_json():
@@ -52,4 +53,24 @@ def test_0_plain():
     with open('./tests/fixtures/test_plain.txt', 'r') as answer:
         expected = answer.read()
     result = gendiff.generate_diff(file1, file2, 'plain')
+    assert result == expected
+
+
+def test_complex_yaml_json():
+    file2 = './tests/fixtures/complex_2.yaml'
+    file1 = './tests/fixtures/complex_1.yaml'
+    # expected = loads('./tests/fixtures/json.json').read()
+    with open('./tests/fixtures/json.json') as answer:
+        expected = loads(answer.read())
+    result = loads(gendiff.generate_diff(file1, file2, 'json'))
+    assert result == expected
+
+
+def test_complex_json_json():
+    file2 = './tests/fixtures/complex_2.json'
+    file1 = './tests/fixtures/complex_1.json'
+    # expected = loads('./tests/fixtures/json.json').read()
+    with open('./tests/fixtures/json.json') as answer:
+        expected = loads(answer.read())
+    result = loads(gendiff.generate_diff(file1, file2, 'json'))
     assert result == expected
