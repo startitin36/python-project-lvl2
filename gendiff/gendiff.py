@@ -3,7 +3,7 @@
 from gendiff.parser import parse
 from gendiff.loader import load_
 from gendiff.formatters.outputs import outputs
-from gendiff.encode import encode
+from gendiff.convert import convert
 
 NO_VAL = 'no_value'
 
@@ -55,8 +55,8 @@ def mark_state(before, after):
         dict of changes
     """
 
-    bef_enc = encode(before)
-    aft_enc = encode(after)
+    bef_enc = convert(before)
+    aft_enc = convert(after)
     if bef_enc == aft_enc:
         return {'same': bef_enc}
     elif before is None and type(before) != str:
@@ -71,5 +71,5 @@ def mark_state(before, after):
 
 def get_value(node, key):
     if key in node:
-        return encode(node.get(key))
+        return convert(node.get(key))
     return None
