@@ -1,6 +1,7 @@
 #!usr/bin/env python3
 
-from gendiff.convert import convert
+from gendiff.parser import parse
+from gendiff.loader import load_
 from gendiff.formatters.outputs import outputs
 from gendiff.encode import encode
 
@@ -25,9 +26,10 @@ def generate_diff(path1, path2, form='stylish'):
     Returns:
         diffs string in required style.
     """
-    old, new = convert([path1, path2])
+    old = load_(parse(path1))
+    new = load_(parse(path2))
     diffs = find_diff(old, new)
-    return outputs.get(form)(diffs)
+    return outputs.get(form)(diffs)g
 
 
 def find_diff(old, new):
