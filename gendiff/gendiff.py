@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 
 from gendiff.convert import convert
-from gendiff.formatters.forms import forms
+from gendiff.formatters.outputs import outputs
 from gendiff.encode import encode
 
 NO_VAL = 'no_value'
@@ -27,7 +27,7 @@ def generate_diff(path1, path2, form='stylish'):
     """
     old, new = convert([path1, path2])
     diffs = find_diff(old, new)
-    return forms.get(form)(diffs)
+    return outputs.get(form)(diffs)
 
 
 def find_diff(old, new):
