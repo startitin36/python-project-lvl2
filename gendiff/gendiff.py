@@ -29,7 +29,7 @@ def generate_diff(path1, path2, form='stylish'):
     old = load_(parse(path1))
     new = load_(parse(path2))
     diffs = find_diff(old, new)
-    return outputs.get(form)(diffs)g
+    return outputs.get(form)(diffs)
 
 
 def find_diff(old, new):
