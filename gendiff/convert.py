@@ -14,10 +14,8 @@ json_convert_list = [
 
 
 def convert(value):
-    if value == 0 and type(value) == int:
-        return 0
-    if value == 1 and type(value) == int:
-        return 1
+    if value in [0, 1] and type(value) == int:
+        return value
     if value in json_convert_list:
         return json.dumps(value)
     return value
