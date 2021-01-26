@@ -12,21 +12,24 @@ def find_diff(old, new):
         dict of/with changes.
     """
     all_keys = old.keys() | new.keys()
-    return dict(
-                map(
-                   lambda x: (x, mark_diff(
-                           get_value(old, x), get_value(new, x))), all_keys))
+    diffs = map(lambda key: (
+        key, mark_diff(get_value(old, key), get_value(new, key))), all_keys
+    )
+
+    return dict(diffs)
 
 
 def mark_diff(before, after):
-    """Mark changes of values of the same key in dicts before&after changes.
+    """Mark changes of values of the same
+    key in dicts before&after changes.
 
     Arguments:
         before: value of key in source dict,
         after: value of key in modified dict,
 
     Returns:
-        one of three marks with value: 'added', 'removed', 'same'
+        one of three marks with value: 'added',
+        'removed', 'same'.
         Example: {'key': {'mark': value}}
     """
 
