@@ -22,7 +22,7 @@ def generate_diff(path1, path2, form='stylish'):
         form (str): output
 
     Returns:
-        diffs string in required style.
+        diffs string in required output style.
     """
     old = load_(parse(path1))
     new = load_(parse(path2))
