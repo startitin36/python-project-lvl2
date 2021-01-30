@@ -1,42 +1,60 @@
+IND = '  '
+signs = {
+    'same': IND,
+    'added': '+ ',
+    'removed': '- ',
+    'empty': '',
+}
+
+
 def form_view(diffs):
     lines = ['{']
 
-    def walk(diff, indent):
-        for key, value in diff.items():
-            if key[0] not in ('+', '-', ' '):
-                key = '  ' + key
+    def walk(diff, lvl):
+        lvl += 1
+        indent = IND * 2 * (lvl - 1)
+        for key, value in sorted(diff.items()):
             if isinstance(value, dict):
-                lines.append(f'{indent}{key}: {{')
-                walk(value, indent + '    ')
-            else:
-                if value == '' or value == "":
-                    lines.append(f'{indent}{key}: ')
-                else:
-                    lines.append(f'{indent}{key}: {value}')
-        lines.append(f'{indent[:-2]}}}')
+                same = value.get('same')
+                added = value.get('added')
+                remd = value.get('removed')
 
-    walk(transform(diffs), '  ')
+                if same:
+                    if isinstance(same, dict):
+                        make_line(lines, indent, key, 'same')
+                        walk(same, lvl)
+                    else:
+                        make_line(lines, indent, key,  'same', same)
+
+                if remd or remd == '' or remd == 0 or remd == 'null':
+                    if isinstance(remd, dict):
+                        make_line(lines, indent, key, 'removed')
+                        walk(remd, lvl)
+                        # make_line(lines, indent, '', 'same')
+                    else:
+                        make_line(lines, indent, key, 'removed', remd)
+
+                if added or added == '' or added == 0 or added == 'null':
+                    if isinstance(added, dict):
+                        make_line(lines, indent, key, 'added')
+                        walk(added, lvl)
+                        # make_line(lines, indent, '', 'same')
+                    else:
+                        make_line(lines, indent, key, 'added', added)
+
+                if added is None and remd is None and same is None:
+                    make_line(lines, indent, key, 'same')
+                    walk(value, lvl)
+            else:
+                make_line(lines, indent, key, 'same', value)
+        make_line(lines, indent, '', 'empty')
+    walk(diffs, 0)
     return '\n'.join(lines)
 
 
-def transform(inner_tree):
-    result = {}
-    for key, value in sorted(inner_tree.items()):
-        if isinstance(value, dict):
-            same = value.get('same')
-            added = value.get('added')
-            removed = value.get('removed')
-            if same:
-                mod_key = '' + '' + key
-                result[mod_key] = same
-            if removed or removed == '' or removed == 0 or removed == 'null':
-                mod_key = '-' + ' ' + key
-                result[mod_key] = removed
-            if added or added == '' or added == 0 or added == 'null':
-                mod_key = '+' + ' ' + key
-                result[mod_key] = added
-            if added is None and removed is None and same is None:
-                result[key] = transform(value)
-        else:
-            result[key] = value
-    return result
+def make_line(lines, indent, key, change='empty', value='{'):
+    sign = IND + signs[change]
+    if key:
+        lines.append('{}{}{}: {}'.format(indent, sign, key, value))
+    else:
+        lines.append('{}{}{}'.format(indent, '', '}'))
