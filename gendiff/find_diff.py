@@ -35,22 +35,24 @@ def mark_diff(before, after):
 
     bef_enc = convert(before)
     aft_enc = convert(after)
+    result = dict
 
     if bef_enc == aft_enc:
-        return {'same': bef_enc}
+        result = {'same': bef_enc}
 
     elif before is None and type(before) != str:
-        return {'added': aft_enc}
+        result = {'added': aft_enc}
 
     elif after is None and type(after) != str:
-        return {'removed': bef_enc}
+        result = {'removed': bef_enc}
 
     elif bef_enc != aft_enc:
 
         if isinstance(after, dict) and isinstance(before, dict):
             return find_diff(before, after)
 
-        return {'removed': bef_enc, 'added': aft_enc}
+        result = {'removed': bef_enc, 'added': aft_enc}
+    return result
 
 
 def get_value(node, key):
