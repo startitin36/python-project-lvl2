@@ -14,7 +14,7 @@ def walk(diff, lines, lvl):
     lvl += 1
     indent = IND * (lvl - 1)
     for key, value in sorted(diff.items()):
-        line1 = indent + IND + key + SC
+        line = indent + IND + key + SC
 
         if isinstance(value, dict):
             same = value.get('same')
@@ -22,7 +22,7 @@ def walk(diff, lines, lvl):
             removed = value.get('removed')
 
             if same:
-                lines.append(line1 + same)
+                lines.append(line + same)
 
             if removed or removed in ['', 0, 'null']:
                 minus = indent + MINUS + key + SC
@@ -33,16 +33,18 @@ def walk(diff, lines, lvl):
                     lines.append(minus + str(removed))
 
             if added or added in ['', 0, 'null']:
-                line = indent + PLUS + key + SC
-                if isinstance(added, dict):
-                    lines.append(line + '{')
+                plus = indent + PLUS + key + SC
+                if type(added) == dict:
+                    lines.append(plus + '{')
                     walk(added, lines, lvl)
                 else:
-                    lines.append(line + str(added))
+                    lines.append(plus + str(added))
 
             if added is None and removed is None and same is None:
-                lines.append(line1 + '{')
+                lines.append(line + '{')
                 walk(value, lines, lvl)
+
         else:
-            lines.append(line1 + str(value))
+            lines.append(line + str(value))
+
     lines.append(indent + '}')
