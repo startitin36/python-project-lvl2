@@ -17,32 +17,32 @@ def walk(diff, lines, lvl):
             removed = value.get('removed')
 
             if same:
-                make_line(lines, indent, key, IND * 2, same)
+                lines.append(make_line(indent, key, IND * 2, same))
 
             if removed or removed in ['', 0, 'null']:
                 if isinstance(removed, dict):
-                    make_line(lines, indent, key, '  - ', '{')
+                    lines.append(make_line(indent, key, '  - ', '{'))
                     walk(removed, lines, lvl)
                 else:
-                    make_line(lines, indent, key, '  - ', removed)
+                    lines.append(make_line(indent, key, '  - ', removed))
 
             if added or added in ['', 0, 'null']:
                 if isinstance(added, dict):
-                    make_line(lines, indent, key, '  + ', '{')
+                    lines.append(make_line(indent, key, '  + ', '{'))
                     walk(added, lines, lvl)
                 else:
-                    make_line(lines, indent, key, '  + ', added)
+                    lines.append(make_line(indent, key, '  + ', added))
 
             if added is None and removed is None and same is None:
-                make_line(lines, indent, key, IND * 2, '{')
+                lines.append(make_line(indent, key, IND * 2, '{'))
                 walk(value, lines, lvl)
         else:
-            make_line(lines, indent, key, IND * 2, value)
-    make_line(lines, indent, '', '', '')
+            lines.append(make_line(indent, key, IND * 2, value))
+    lines.append(make_line(indent, '', '', ''))
 
 
-def make_line(lines, indent, key, change='', value=None):
+def make_line(indent, key, change='', value=None):
     if key:
-        lines.append('{}{}{}: {}'.format(indent, change, key, value))
+        return '{}{}{}: {}'.format(indent, change, key, value)
     else:
-        lines.append('{}{}{}'.format(indent, '', '}'))
+        return '{}{}{}'.format(indent, '', '}')
