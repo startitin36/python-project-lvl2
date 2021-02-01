@@ -1,10 +1,4 @@
 IND = '  '
-signs = {
-    'same': IND,
-    'added': '+ ',
-    'removed': '- ',
-    'empty': '',
-}
 
 
 def form_view(diffs):
@@ -17,44 +11,38 @@ def form_view(diffs):
             if isinstance(value, dict):
                 same = value.get('same')
                 added = value.get('added')
-                remd = value.get('removed')
+                removed = value.get('removed')
 
                 if same:
-                    if isinstance(same, dict):
-                        make_line(lines, indent, key, 'same')
-                        walk(same, lvl)
-                    else:
-                        make_line(lines, indent, key,  'same', same)
+                    make_line(lines, indent, key,  IND * 2, same)
 
-                if remd or remd == '' or remd == 0 or remd == 'null':
-                    if isinstance(remd, dict):
-                        make_line(lines, indent, key, 'removed')
-                        walk(remd, lvl)
-                        # make_line(lines, indent, '', 'same')
+                if removed or removed in ['', 0, 'null']:
+                    if isinstance(removed, dict):
+                        make_line(lines, indent, key, '  - ', '{')
+                        walk(removed, lvl)
                     else:
-                        make_line(lines, indent, key, 'removed', remd)
+                        make_line(lines, indent, key, '  - ', removed)
 
-                if added or added == '' or added == 0 or added == 'null':
+                if added or added in ['', 0, 'null']:
                     if isinstance(added, dict):
-                        make_line(lines, indent, key, 'added')
+                        make_line(lines, indent, key, '  + ', '{')
                         walk(added, lvl)
-                        # make_line(lines, indent, '', 'same')
                     else:
-                        make_line(lines, indent, key, 'added', added)
+                        make_line(lines, indent, key, '  + ', added)
 
-                if added is None and remd is None and same is None:
-                    make_line(lines, indent, key, 'same')
+                if added is None and removed is None and same is None:
+                    make_line(lines, indent, key, IND * 2, '{')
                     walk(value, lvl)
             else:
-                make_line(lines, indent, key, 'same', value)
-        make_line(lines, indent, '', 'empty')
+                make_line(lines, indent, key, IND * 2, value)
+        make_line(lines, indent, '', '', '')
     walk(diffs, 0)
     return '\n'.join(lines)
 
 
-def make_line(lines, indent, key, change='empty', value='{'):
-    sign = IND + signs[change]
+def make_line(lines, indent, key, change='', value=None):
+    # sign = IND + signs.get(change)
     if key:
-        lines.append('{}{}{}: {}'.format(indent, sign, key, value))
+        lines.append('{}{}{}: {}'.format(indent, change, key, value))
     else:
         lines.append('{}{}{}'.format(indent, '', '}'))
