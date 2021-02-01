@@ -46,12 +46,8 @@ def walk(node, path, lines):
             # get values of changes if they are present:
             val_bef, val_aft = value.get('removed'), value.get('added')
 
-            #  no need 'same' key for 'plain' format
-            if 'same' in value:
-                continue
-
             # if there are both values: before and after changes:
-            elif val_aft is not None and val_bef is not None:
+            if val_aft is not None and val_bef is not None:
 
                 # mode value if it complex:
                 val_bef, val_aft = mod_value(val_bef), mod_value(val_aft)
