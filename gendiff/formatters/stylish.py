@@ -14,7 +14,7 @@ def form_view(diffs):
                 removed = value.get('removed')
 
                 if same:
-                    make_line(lines, indent, key,  IND * 2, same)
+                    make_line(lines, indent, key, IND * 2, same)
 
                 if removed or removed in ['', 0, 'null']:
                     if isinstance(removed, dict):
@@ -41,7 +41,6 @@ def form_view(diffs):
 
 
 def make_line(lines, indent, key, change='', value=None):
-    # sign = IND + signs.get(change)
     if key:
         lines.append('{}{}{}: {}'.format(indent, change, key, value))
     else:
