@@ -1,58 +1,36 @@
 from gendiff.convert import convert
 
+REM = 'removed'
+ADD = 'added'
+SAME = 'same'
+
 
 def find_diff(old, new):
-    """Find diff between two dicts: before and after changes.
+    diff = {}
 
-    Arguments:
-        old (dict): dict before changes
-        new (dict): dict after changes
+    same_keys = old.keys() & new.keys()
+    for key in same_keys:
+        diff[key] = mark_diff(old[key], new[key])
 
-    Returns:
-        dict of/with changes.
-    """
-    all_keys = old.keys() | new.keys()
-    diffs = map(lambda key: (
-        key, mark_diff(get_value(old, key), get_value(new, key))), all_keys
-    )
+    removed_keys = old.keys() - new.keys()
+    for key in removed_keys:
+        diff[key] = {REM: convert(old[key])}
 
-    return dict(diffs)
+    added_keys = new.keys() - old.keys()
+    for key in added_keys:
+        diff[key] = {ADD: convert(new[key])}
+
+    return diff
 
 
-def mark_diff(before, after):
-    """Mark changes of values of the same
-    key in dicts before&after changes.
-
-    Arguments:
-        before: value of key in source dict,
-        after: value of key in modified dict,
-
-    Returns:
-        one of three marks with value: 'added',
-        'removed', 'same'.
-        Example: {'key': {'mark': value}}
-    """
-
-    bef_enc = convert(before)
-    aft_enc = convert(after)
-    result = dict
-
-    if bef_enc == aft_enc:
-        result = {'same': bef_enc}
-
-    elif before is None and type(before) != str:
-        result = {'added': aft_enc}
-
-    elif after is None and type(after) != str:
-        result = {'removed': bef_enc}
-
-    elif bef_enc != aft_enc:
-
-        if isinstance(after, dict) and isinstance(before, dict):
-            return find_diff(before, after)
-
-        result = {'removed': bef_enc, 'added': aft_enc}
-    return result
+def mark_diff(old, new):
+    old_value = convert(old)
+    new_value = convert(new)
+    if isinstance(old_value, dict) and isinstance(new_value, dict):
+        return find_diff(old_value, new_value)
+    if old_value == new_value:
+        return {SAME: old_value}
+    return {REM: old_value, ADD: new_value}
 
 
 def get_value(node, key):
